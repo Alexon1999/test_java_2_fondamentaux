@@ -16,7 +16,7 @@ public class Utilitaire {
     /**
      * @param path le chemin vers le fichier
      * @return La Liste de Personne
-     * @throws IOException si il y a une erreur dans le path
+     * @throws IOException s'il y a une erreur dans le path
      */
     public static List<Personne> getPersonsFromFile(String path) throws IOException {
         Path filePath = Path.of(path);
@@ -54,8 +54,8 @@ public class Utilitaire {
      * @param lesPersonnes La liste de personnes à trier selon leurs postes
      * @return Une Map avec Poste (k) et Liste de Personne (v)
      */
-    public static Map<Poste, List<Personne>> GetPersonnesParPostes(List<Personne> lesPersonnes){
-        Map<Poste, List<Personne>> lesPersonnesParLeursPostes = new HashMap<Poste, List<Personne>>();
+    public static Map<Poste, List<? extends Personne>> GetPersonnesParPostes(List<Personne> lesPersonnes){
+        Map<Poste, List<? extends Personne>> lesPersonnesParLeursPostes = new HashMap<Poste, List<? extends Personne>>();
         List<Enseignant> lesEnsignants = new ArrayList<>();
         List<Etudiant> lesEtudiants = new ArrayList<>();
         List<PersonnelAdministratif> lesAdministratifs = new ArrayList<>();
@@ -79,10 +79,10 @@ public class Utilitaire {
     }
 
     /**
-     * Afficher Le nombre de personne par poste
+     * Afficher Le nombre de personnes par poste
      * @param personnesParPostes Une Map avec Poste et List de Personnes
      */
-    public static void CountViewByJob(Map<Poste, List<Personne>> personnesParPostes){
+    public static void CountViewByJob(Map<Poste, List<? extends Personne>> personnesParPostes){
         for (Poste poste : personnesParPostes.keySet()){
             int size = personnesParPostes.get(poste).size();
             System.out.println("Nous avons " +  size + " " + (size > 1 ? poste + "S" : poste));
@@ -91,7 +91,7 @@ public class Utilitaire {
 
     /**
      * Tri par âge
-     * @param lesPersonnes La Liste de  Personne à trier par age
+     * @param lesPersonnes La Liste de Personne à trier par age
      */
     public static void trierPersonnesParAge(List<Personne> lesPersonnes){
         Collections.sort(lesPersonnes, new PersonneAgeComparator());
@@ -125,7 +125,7 @@ public class Utilitaire {
 
     /**
      * Obtenir L'âge moyen des personnes qui travaille dans le RH
-     * @param lesAdministrartifs
+     * @param lesAdministrartifs les personnels administratifs
      * @return l'âge moyen
      */
     public static Integer GetAgeMoyenRH(List<PersonnelAdministratif> lesAdministrartifs){
@@ -133,4 +133,33 @@ public class Utilitaire {
                 .filter(enseignant -> enseignant.getRole().equals("RH"))
                 .reduce(0, (partialAgeResult, enseignant) ->  partialAgeResult + enseignant.getAge(), Integer::sum) / lesAdministrartifs.size();
     }
+
+    /**
+     * Générer des fichiers txt par poste grâce au Map entré.
+     * @param personnesParPostes Une Map avec Poste et List de Personnes
+     * @param baseDir le chemin de base
+     * @throws IOException s'il y a une erreur dans la création des fichiers
+     */
+    public static void GenerateFilesForEachJob(Map<Poste, List<? extends Personne>> personnesParPostes, String baseDir) throws IOException{
+        String fileName = "";
+        for (Map.Entry<Poste, List<? extends Personne>> entry : personnesParPostes.entrySet()){
+            if(entry.getKey() == Poste.ETUDIANT){
+                fileName = baseDir + "/etudiants.txt";
+                List<Etudiant> etudiants = (List<Etudiant>) entry.getValue();
+                List<String> etudiantsAsStringArray = etudiants.stream().map(Etudiant::toString).toList();
+                Files.write(Path.of(fileName), etudiantsAsStringArray);
+            }else if(entry.getKey() == Poste.ENSEIGNANT) {
+                fileName = baseDir + "/enseignants.txt";
+                List<Enseignant> enseignants = (List<Enseignant>) entry.getValue();
+                List<String> enseignantsAsStringArray = enseignants.stream().map(Enseignant::toString).toList();
+                Files.write(Path.of(fileName), enseignantsAsStringArray);
+            }else if(entry.getKey() == Poste.ADMINISTRATIF){
+                fileName = baseDir + "/administratifs.txt";
+                List<PersonnelAdministratif> administratifs = (List<PersonnelAdministratif>) entry.getValue();
+                List<String> administratifsAsStringArray = administratifs.stream().map(PersonnelAdministratif::toString).toList();
+                Files.write(Path.of(fileName), administratifsAsStringArray);
+            }
+        }
+    }
+
 }
