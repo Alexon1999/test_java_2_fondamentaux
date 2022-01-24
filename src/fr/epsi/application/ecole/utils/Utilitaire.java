@@ -1,16 +1,15 @@
 package fr.epsi.application.ecole.utils;
 
 import fr.epsi.application.ecole.*;
+import fr.epsi.application.ecole.comparators.EtudiantMoyenneComparator;
+import fr.epsi.application.ecole.comparators.PersonneAgeComparator;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Utilitaire {
 
@@ -74,6 +73,14 @@ public class Utilitaire {
             int size = personnesParPostes.get(poste).size();
             System.out.println("Nous avons " +  size + " " + (size > 1 ? poste + "S" : poste));
         }
+    }
+
+    public static void trierPersonnesParAge(List<Personne> lesPersonnes){
+        Collections.sort(lesPersonnes, new PersonneAgeComparator());
+    }
+
+    public static void trierEtudiantsParAge(List<Etudiant> lesEtudiants){
+        Collections.sort(lesEtudiants, new EtudiantMoyenneComparator());
     }
 
 }
