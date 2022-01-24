@@ -1,4 +1,4 @@
-package fr.epsi.application.ecole;
+package fr.epsi.application.ecole.model;
 
 public enum Poste {
     ETUDIANT,

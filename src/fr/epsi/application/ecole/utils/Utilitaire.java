@@ -1,12 +1,8 @@
 package fr.epsi.application.ecole.utils;
 
-import fr.epsi.application.ecole.*;
 import fr.epsi.application.ecole.comparators.EtudiantMoyenneComparator;
 import fr.epsi.application.ecole.comparators.PersonneAgeComparator;
-import fr.epsi.application.ecole.model.Enseignant;
-import fr.epsi.application.ecole.model.Etudiant;
-import fr.epsi.application.ecole.model.Personne;
-import fr.epsi.application.ecole.model.PersonnelAdministratif;
+import fr.epsi.application.ecole.model.*;
 
 import java.io.IOException;
 import java.nio.file.Files;

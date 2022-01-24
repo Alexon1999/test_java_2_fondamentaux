@@ -1,7 +1,7 @@
 package fr.epsi.application;
 
-import fr.epsi.application.ecole.*;
 import fr.epsi.application.ecole.model.Personne;
+import fr.epsi.application.ecole.model.Poste;
 import fr.epsi.application.ecole.utils.Utilitaire;
 
 import java.io.IOException;
