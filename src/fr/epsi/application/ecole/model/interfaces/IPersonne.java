@@ -1,6 +1,6 @@
 package fr.epsi.application.ecole.model.interfaces;
 
-public interface Personne {
+public interface IPersonne {
     String getNom();
     Integer getAge();
 }

@@ -1,8 +1,10 @@
 package fr.epsi.application.ecole.model;
 
+import fr.epsi.application.ecole.model.interfaces.IPersonne;
+
 import java.time.LocalDate;
 
-public class Personne {
+public class Personne implements IPersonne {
     private String nom;
     private LocalDate dbo;
 
