@@ -1,8 +1,10 @@
-package fr.epsi.application.ecole;
+package fr.epsi.application.ecole.model;
+
+import fr.epsi.application.ecole.model.Personne;
 
 import java.time.LocalDate;
 
-public class PersonnelAdministratif extends Personne{
+public class PersonnelAdministratif extends Personne {
     private String role;
 
     public PersonnelAdministratif(String nom, LocalDate dbo, String role) {

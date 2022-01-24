@@ -1,11 +1,10 @@
 package fr.epsi.application;
 
 import fr.epsi.application.ecole.*;
+import fr.epsi.application.ecole.model.Personne;
 import fr.epsi.application.ecole.utils.Utilitaire;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,5 +22,9 @@ public class Application {
         }
 
         Utilitaire.CountViewByJob(lesPersonnesParLeursPostes);
+
+        Utilitaire.trierPersonnesParAge(lesPersonnes);
+        //Utilitaire.trierEtudiantsParMoyenne(lesPersonnesParLeursPostes.get(Poste.ETUDIANT));
+
     }
 }

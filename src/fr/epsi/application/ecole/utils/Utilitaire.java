@@ -3,6 +3,10 @@ package fr.epsi.application.ecole.utils;
 import fr.epsi.application.ecole.*;
 import fr.epsi.application.ecole.comparators.EtudiantMoyenneComparator;
 import fr.epsi.application.ecole.comparators.PersonneAgeComparator;
+import fr.epsi.application.ecole.model.Enseignant;
+import fr.epsi.application.ecole.model.Etudiant;
+import fr.epsi.application.ecole.model.Personne;
+import fr.epsi.application.ecole.model.PersonnelAdministratif;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -79,8 +83,21 @@ public class Utilitaire {
         Collections.sort(lesPersonnes, new PersonneAgeComparator());
     }
 
-    public static void trierEtudiantsParAge(List<Etudiant> lesEtudiants){
+    public static void trierEtudiantsParMoyenne(List<Etudiant> lesEtudiants){
         Collections.sort(lesEtudiants, new EtudiantMoyenneComparator());
     }
 
+    public static List<Etudiant> GetListEtudiantsplus21ans(List<Etudiant> lesEtudiants){
+        return lesEtudiants.stream().filter(etudiant -> etudiant.getAge() > 21).toList();
+    }
+
+    public static List<Enseignant> GetListEnseignantsAnglais(List<Enseignant> lesEnseignants){
+        return lesEnseignants.stream().filter(enseignant -> enseignant.getMatieres().contains("Anglais")).toList();
+    }
+
+    public static Integer GetAgeMoyenRH(List<PersonnelAdministratif> lesAdministrartifs){
+        return lesAdministrartifs.stream()
+                .filter(enseignant -> enseignant.getRole().equals("RH"))
+                .reduce(0, (partialAgeResult, enseignant) ->  partialAgeResult + enseignant.getAge(), Integer::sum);
+    }
 }

@@ -1,6 +1,6 @@
 package fr.epsi.application.ecole.comparators;
 
-import fr.epsi.application.ecole.Etudiant;
+import fr.epsi.application.ecole.model.Etudiant;
 
 import java.util.Comparator;
 

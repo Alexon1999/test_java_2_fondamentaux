@@ -1,10 +1,8 @@
-package fr.epsi.application.ecole;
+package fr.epsi.application.ecole.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Enseignant extends Personne{
+public class Enseignant extends Personne {
     private String matieres;
 
     public Enseignant(String nom, LocalDate dbo, String matieres) {
