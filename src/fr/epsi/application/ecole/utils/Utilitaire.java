@@ -94,6 +94,6 @@ public class Utilitaire {
     public static Integer GetAgeMoyenRH(List<PersonnelAdministratif> lesAdministrartifs){
         return lesAdministrartifs.stream()
                 .filter(enseignant -> enseignant.getRole().equals("RH"))
-                .reduce(0, (partialAgeResult, enseignant) ->  partialAgeResult + enseignant.getAge(), Integer::sum);
+                .reduce(0, (partialAgeResult, enseignant) ->  partialAgeResult + enseignant.getAge(), Integer::sum) / lesAdministrartifs.size();
     }
 }
